@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TravelKIF - Redeem Voucher</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <img src="travelkif.png" alt="TravelKIF Logo" class="logo">
+  </header>
+
+  <div class="container">
+    <div class="image-section">
+      <img src="customer.jpeg" alt="Duomo di Milano" />
+    </div>
+    <div class="form-section">
+      <h1>Bonjour!</h1>
+      <h2>Yuk Redeem Vouchermu!</h2>
+
+      <div class="form-title">Isi Data Di bawah</div>
+      <form id="redeemForm">
+        <input type="text" name="name" placeholder="Nama:" required />
+        <input type="text" name="phone" placeholder="No WhatsApp:" required />
+        <input type="text" name="code" placeholder="Kode Voucher (Huruf Kapital):" required />
+        <button type="submit">Kirim</button>
+      </form>
+
+      <div class="contact-box">
+        <h3>Contact Us</h3>
+        <div class="contact-info">
+          <div><img src="WA.png" alt="WhatsApp Icon"> +62 813-3151-4151</div>
+          <div><img src="gps.png" alt="Location Icon"> Tower 88 Casablanca City (Lantai 26F), Jakarta Selatan</div>
+          <div><img src="insta.png" alt="Instagram Icon"> @travelkif & @jalanjalan.asia</div>
+          <div><img src="web.png" alt="Web Icon"> travelkif.id</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Travelkif 2025
+  </footer>
+
+  <script>
+    document.getElementById('redeemForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        name: form.name.value,
+        phone: form.phone.value,
+        code: form.code.value
+      };
+  
+      fetch('https://script.google.com/macros/s/AKfycbxDrjRfqZAqiA_URvgty_LPGxNjwpP2mfrnDhg98uBpv4Y7GuAH18rJdxnuZ6yCOSBM/exec', {
+        method: 'POST',
+        body: JSON.stringify(data)
+      })
+      .then(response => response.text())
+      .then(result => {
+        if (result === 'berhasil') {
+          window.location.href = 'success.html';
+        } else if (result === 'sudah_ditukar') {
+          alert("Kode voucher ini sudah digunakan.");
+        } else {
+          alert("Kode voucher tidak valid.");
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert("Terjadi kesalahan saat mengirim data.");
+      });
+    });
+  </script>
+</body>
+</html>
